@@ -15,3 +15,18 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+variable "private_key" {
+  desciption = "private key to decrypt the admin password"
+  type       = string
+}
+
+variable "instance_name" {
+  description = "base name of the instance"
+  type        = string
+}
+
+variable "patchgroup" {
+  description = "patch group the instance belongs"
+  type        = string
+}
