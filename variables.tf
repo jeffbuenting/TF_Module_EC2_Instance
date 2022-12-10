@@ -1,6 +1,6 @@
 variable "num_instances" {
   description = "How many instances to create"
-  type        = num
+  type        = number
   default     = 1
 }
 
@@ -17,8 +17,8 @@ variable "instance_type" {
 }
 
 variable "private_key" {
-  desciption = "private key to decrypt the admin password"
-  type       = string
+  description = "private key to decrypt the admin password"
+  type        = string
 }
 
 variable "instance_name" {
