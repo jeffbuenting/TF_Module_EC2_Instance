@@ -33,8 +33,8 @@ resource "aws_instance" "instance" {
   key_name = "InstanceKey"
 
   tags = {
-    Name       = "AWS-UNICA-${count.index}"
-    PatchGroup = "UNICAServers"
+    Name       = "${var.instance-name}-${count.index}"
+    PatchGroup = "${var.patchgroup}"
   }
 }
 
