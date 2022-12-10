@@ -33,7 +33,7 @@ resource "aws_instance" "instance" {
   key_name = "InstanceKey"
 
   tags = {
-    Name       = "${var.instance-name}-${count.index}"
+    Name       = "${var.instance_name}-${count.index}"
     PatchGroup = "${var.patchgroup}"
   }
 }
