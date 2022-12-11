@@ -1,5 +1,10 @@
 # Terraform module to create an EC2 Insance
 
+data "aws_key_pair" "kp" {
+  key_name           = var.kp_name
+  include_public_key = true
+}
+
 # Key Pair for instance
 # data "terraform_remote_state" "kp" {
 #   backend = "local"
@@ -29,8 +34,7 @@ resource "aws_instance" "instance" {
 
   vpc_security_group_ids = [aws_security_group.instance.id]
   get_password_data      = true
-  # key_name               = kp.name
-  key_name = "InstanceKey"
+  key_name               = kp.name
 
   tags = {
     Name       = "${var.instance_name}-${count.index}"
@@ -81,22 +85,6 @@ resource "aws_iam_role" "SSMManagedInstance_Role" {
     }
   EOF
 
-  #  assume_role_policy = jsonencode({
-  #   Version = "2012-10-17"
-  #   Statement = [
-  #     {
-  #       Action = "sts:AssumeRole"
-  #       Effect = "Allow"
-  #       Sid    = ""
-  #       Principal = {
-  #         Service = "ec2.amazonaws.com"
-  #       }
-  #     },
-  #   ]
-  # })
-
-  # managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
-
   tags = {
     tag-key = "Deployed-Terraform"
   }
@@ -114,11 +102,6 @@ data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
 data "aws_iam_policy" "AmazonSSMAutomationRole" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonSSMAutomationRole"
 }
-
-# resource "aws_iam_role_policy_attachment" "SSMInstancePolicy" {
-#   role       = aws_iam_role.SSMManagedInstance_Role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-# }
 
 resource "aws_iam_role_policy_attachment" "SSMInstancePolicy" {
   role = aws_iam_role.SSMManagedInstance_Role.name

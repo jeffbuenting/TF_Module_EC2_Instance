@@ -16,6 +16,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+variable "kp_name" {
+  description = "name of the keypair to use to encrypt/decrypt instance passwords"
+  type        = string
+}
 variable "private_key" {
   description = "private key to decrypt the admin password"
   type        = string
