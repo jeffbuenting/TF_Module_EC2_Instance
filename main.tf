@@ -1,8 +1,7 @@
 # Terraform module to create an EC2 Insance
 
 data "aws_key_pair" "kp" {
-  key_name = var.kp_name
-  #key_name           = "InstanceKey"
+  key_name           = var.kp_name
   include_public_key = true
 }
 
@@ -35,8 +34,7 @@ resource "aws_instance" "instance" {
 
   vpc_security_group_ids = [aws_security_group.instance.id]
   get_password_data      = true
-  # key_name               = kp.name
-  key_name = "InstanceKey"
+  key_name               = aws_key_pair.kb.name
 
   tags = {
     Name       = "${var.instance_name}-${count.index}"
