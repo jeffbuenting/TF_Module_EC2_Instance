@@ -34,7 +34,7 @@ resource "aws_instance" "instance" {
 
   vpc_security_group_ids = [aws_security_group.instance.id]
   get_password_data      = true
-  key_name               = aws_key_pair.kb.name
+  key_name               = data.aws_key_pair.kp.key_name
 
   tags = {
     Name       = "${var.instance_name}-${count.index}"
