@@ -1,8 +1,8 @@
 # Terraform module to create an EC2 Insance
 
 data "aws_key_pair" "kp" {
-  # key_name           = var.kp_name
-  key_name           = "InstanceKey"
+  key_name = var.kp_name
+  #key_name           = "InstanceKey"
   include_public_key = true
 }
 
